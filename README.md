@@ -1,5 +1,23 @@
-
 # Frontend - Sistema de Agendamento de Transferências
+
+### O frontend foi construído em Vue 3 com Pinia para gerenciamento de estado e Vue Router para navegação. O projeto segue uma estrutura modular:
+
+- components
+    - Componentes reutilizáveis da interface.
+
+- store
+    - Estado centralizado da aplicação (Pinia).
+
+- router
+    - Configuração das rotas da aplicação.
+
+- service
+    - Comunicação com o backend via Axios (camada de integração).
+
+- view
+    - Telas principais da aplicação, que consomem os componentes.
+
+Benefício: Essa organização segue boas práticas de aplicações Vue modernas, mantendo baixa acoplabilidade e alta coesão entre as partes.
 
 ## Tecnologias utilizadas
 - [Vue 3](https://vuejs.org/)
