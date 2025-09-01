@@ -47,9 +47,13 @@ const form = reactive({
 
 async function agendar() {
   try {
+
+    if (!validarForm(form)) {
+      return
+    }
     await store.agendar(form)
     const [ano, mes, dia] = form.dataTransferencia.split('-').map(Number)
-    const dataTransferencia = new Date(ano, mes - 1, dia) // <- mês - 1 porque Date do JS é 0-based
+    const dataTransferencia = new Date(ano, mes - 1, dia)
     dataTransferencia.setHours(0, 0, 0, 0)
 
     const hoje = new Date()
@@ -68,6 +72,32 @@ async function agendar() {
   } catch (e) {
     alert('Erro ao agendar transferência: ' + (e.response?.data?.message || e.message))
   }
+}
+
+function validarForm(form){
+  if(!form.contaOrigem || !form.contaDestino || !form.valor || !form.dataTransferencia) {
+    alert('Todos os campos são obrigatórios')
+    return false
+  }
+  if(form.contaOrigem === form.contaDestino) {
+    alert('Conta de destino não pode ser igual à conta de origem')
+    return false
+  }
+  const valorNumerico = parseFloat(form.valor.replace(/[^\d,-]/g, '').replace(',', '.'))
+  if(isNaN(valorNumerico) || valorNumerico <= 0) {
+    alert('Valor deve ser um número positivo')
+    return false
+  }
+  const hoje = new Date()
+  hoje.setHours(0,0,0,0)
+  const [ano, mes, dia] = form.dataTransferencia.split('-').map(Number)
+  const dataTransferencia = new Date(ano, mes -1, dia)
+  dataTransferencia.setHours(0,0,0,0)
+  if(dataTransferencia < hoje) {
+    alert('Data de transferência não pode ser no passado')
+    return false
+  }
+  return true
 }
 
 

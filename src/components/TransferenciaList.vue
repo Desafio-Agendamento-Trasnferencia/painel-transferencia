@@ -1,31 +1,33 @@
 <template>
   <div class="extrato-container">
     <div class="extrato-wrapper">
-<table class="extrato">
-      <thead>
-        <tr>
-          <th class="col-data">Data Transferência</th>
-          <th class="col-data">Data Agendamento</th>
-          <th class="col-origem">Conta Origem</th>
-          <th class="col-destino">Conta Destino</th>
-          <th class="col-valor">Valor</th>
-          <th class="col-taxa">Taxa</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-if="!store.agendamentos || store.agendamentos.length === 0">
-          <td colspan="6" class="sem-dados">Nenhuma transferência agendada</td>
-        </tr>
-        <tr v-for="t in store.agendamentos" :key="t.id">
-          <td>{{ formatarDataHora(t.dataTransferencia) }}</td>
-          <td>{{ formatarData(t.dataAgendamento) }}</td>
-          <td>{{ maskConta(t.contaOrigem) }}</td>
-          <td>{{ maskConta(t.contaDestino) }}</td>
-          <td>R$ {{ t.valor }}</td>
-          <td>R$ {{ t.taxa }}</td>
-        </tr>
-      </tbody>
-    </table>
+      <table class="extrato">
+        <thead>
+          <tr>
+            <th class="col-data">Data Transferência</th>
+            <th class="col-data">Data Agendamento</th>
+            <th class="col-origem">Conta Origem</th>
+            <th class="col-destino">Conta Destino</th>
+            <th class="col-valor">Valor</th>
+            <th class="col-taxa">Taxa</th>
+            <th class="col-status">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-if="!store.agendamentos || store.agendamentos.length === 0">
+            <td colspan="7" class="sem-dados">Nenhuma transferência agendada</td>
+          </tr>
+          <tr v-for="t in store.agendamentos" :key="t.id">
+            <td>{{ formatarDataHora(t.dataTransferencia) }}</td>
+            <td>{{ formatarData(t.dataAgendamento) }}</td>
+            <td>{{ maskConta(t.contaOrigem) }}</td>
+            <td>{{ maskConta(t.contaDestino) }}</td>
+            <td>R$ {{ t.valor }}</td>
+            <td>R$ {{ t.taxa }}</td>
+            <td> {{ t.status }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
@@ -75,7 +77,6 @@ store.carregarAgendamentos()
   border: 2px solid #000000;
   text-align: center;
   color: #000000;
-  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -95,6 +96,10 @@ store.carregarAgendamentos()
 }
 
 .col-destino {
+  width: 5rem;
+}
+
+.col-status {
   width: 5rem;
 }
 
