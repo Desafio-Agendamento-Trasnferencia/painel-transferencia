@@ -1,0 +1,15 @@
+{
+    "root": [
+        "./src/app.vue",
+        "./src/main.ts",
+        "./src/vite-env.d.ts",
+        "./src/components/contalist.vue",
+        "./src/components/transferenciaform.vue",
+        "./src/components/transferencialist.vue",
+        "./src/view/agendar.vue",
+        "./src/view/contas.vue",
+        "./src/view/extrato.vue",
+        "./src/view/home.vue"
+    ],
+    "version": "5.8.3"
+}
